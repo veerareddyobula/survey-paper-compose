@@ -1,0 +1,22 @@
+version: '2'
+services:
+  survey-api:
+    build: ./survey-server/
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./server:/usr/src/app
+    networks:
+      - survey-paper-compose
+  survey-ui:
+    build: ./survey-client/
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+    depends_on:
+      - survey-api
+    networks:
+      - survey-paper-compose
+networks:
+  survey-paper-compose:
